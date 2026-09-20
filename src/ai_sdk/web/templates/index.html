@@ -1,0 +1,192 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="A source-grounded, multi-provider knowledge assistant.">
+    <title>LyustrAI</title>
+    <link rel="icon" href="/static/favicon.svg?v=2" type="image/svg+xml">
+    <link rel="stylesheet" href="/static/styles.css?v=15">
+  </head>
+  <body>
+    <div class="ambient ambient-one"></div>
+    <div class="ambient ambient-two"></div>
+
+    <header class="topbar">
+      <a class="brand" href="/" aria-label="LyustrAI home">
+        <span class="brand-mark" aria-hidden="true">
+          <svg class="convergence-icon brand-convergence" viewBox="0 0 256 256" focusable="false">
+            <g class="convergence-segments">
+              <path d="m150 47 54 31v61"></path>
+              <path d="m190 184-62 36-62-36"></path>
+              <path d="M52 139V78l54-31"></path>
+            </g>
+            <path class="convergence-core" d="m128 108 20 20-20 20-20-20z"></path>
+          </svg>
+        </span>
+        <span>
+          <strong>LyustrAI</strong>
+          <small>Source-grounded AI workspace</small>
+        </span>
+      </a>
+      <div class="topbar-actions">
+        <span id="system-status" class="status-pill neutral">
+          <span class="status-dot"></span>
+          Checking providers
+        </span>
+      </div>
+    </header>
+
+    <main class="workspace">
+      <aside class="panel control-panel">
+        <section id="conversation-navigation" class="conversation-navigation">
+          <div class="conversation-nav-heading">
+            <div>
+              <span class="eyebrow">Conversations</span>
+              <h2>Chats</h2>
+            </div>
+            <button id="chat-list-toggle" class="chat-list-toggle" type="button" aria-expanded="true" aria-controls="conversation-nav-body">⌃</button>
+          </div>
+          <div id="conversation-nav-body" class="conversation-nav-body">
+            <button id="new-chat-button" class="new-chat-button" type="button">
+              <span aria-hidden="true">＋</span><span>New chat</span>
+            </button>
+            <div id="conversation-list" class="conversation-list" aria-label="Saved conversations">
+              <div class="conversation-list-empty">No saved chats yet.</div>
+            </div>
+          </div>
+        </section>
+
+        <div class="divider"></div>
+
+        <div class="panel-heading">
+          <span class="eyebrow">Workspace</span>
+          <h2>Model strategy</h2>
+        </div>
+
+        <div class="segmented" role="group" aria-label="Chat mode">
+          <button class="segment active" data-mode="single" type="button">Single Model</button>
+          <button class="segment" data-mode="adaptive" type="button">Adaptive</button>
+        </div>
+
+        <label class="field-label" for="provider">Provider</label>
+        <select id="provider" class="select-field">
+          <option value="anthropic">Claude · Anthropic</option>
+          <option value="openai">GPT · OpenAI</option>
+          <option value="gemini">Gemini · Google</option>
+        </select>
+        <p id="mode-copy" class="field-hint">One provider answers with the shared RAG context.</p>
+
+        <div id="adaptive-strategy-control" class="adaptive-strategy-control hidden">
+          <span class="field-label">Adaptive effort</span>
+          <div class="adaptive-strategy-segmented" role="group" aria-label="Adaptive effort">
+            <button class="strategy-option active" data-strategy="auto" type="button">Auto</button>
+            <button class="strategy-option" data-strategy="maximum" type="button">Maximum</button>
+          </div>
+          <p id="adaptive-strategy-copy" class="field-hint">Chooses the smallest suitable route for lower cost and latency.</p>
+        </div>
+
+        <div class="divider"></div>
+
+        <div class="panel-heading compact">
+          <span class="eyebrow">Knowledge base</span>
+          <div class="heading-row">
+            <h2>Documents</h2>
+            <span id="document-count" class="count-badge">0</span>
+          </div>
+        </div>
+
+        <label id="upload-zone" class="upload-zone" for="file-input">
+          <span class="upload-icon">↥</span>
+          <strong>Drop a document or browse</strong>
+          <small>PDF, Markdown or TXT · max {{ upload_limit_mb }} MB</small>
+          <input id="file-input" type="file" accept=".pdf,.md,.markdown,.txt">
+        </label>
+        <div id="upload-message" class="inline-message" role="status"></div>
+        <div id="document-list" class="document-list"></div>
+      </aside>
+
+      <section class="panel conversation-panel">
+        <div class="conversation-header">
+          <div>
+            <span class="eyebrow">Grounded conversation</span>
+            <h1 id="conversation-title">New conversation</h1>
+          </div>
+          <button id="header-new-chat-button" class="icon-button" type="button" title="New chat" aria-label="New chat">＋</button>
+        </div>
+
+        <div id="empty-state" class="empty-state">
+          <div class="orbit-mark">
+            <span></span><span></span><span></span>
+          </div>
+          <h3>Your documents become the context.</h3>
+          <p>Upload the project docs, then ask how routing, retrieval, cancellation, or evaluation works.</p>
+          <div class="prompt-grid">
+            <button type="button" class="prompt-card">How does adaptive routing reduce requests?</button>
+            <button type="button" class="prompt-card">Explain the hybrid retrieval pipeline.</button>
+            <button type="button" class="prompt-card">What happens when a workflow is cancelled?</button>
+          </div>
+        </div>
+
+        <div id="messages" class="messages" aria-live="polite"></div>
+
+        <form id="chat-form" class="composer">
+          <textarea id="message-input" rows="1" maxlength="20000" placeholder="Ask a question about your knowledge base…" required></textarea>
+          <div class="composer-footer">
+            <span id="composer-state" class="composer-state">Ready</span>
+            <div class="composer-actions">
+              <button id="cancel-button" class="cancel-button hidden" type="button">Cancel</button>
+              <button id="send-button" class="send-button" type="submit">
+                <span>Send</span><span aria-hidden="true">↗</span>
+              </button>
+            </div>
+          </div>
+        </form>
+      </section>
+
+      <aside class="panel evidence-panel">
+        <div class="panel-heading">
+          <span class="eyebrow">Execution trace</span>
+          <h2>Activity</h2>
+        </div>
+        <div id="route-summary" class="route-summary neutral">
+          <span class="route-icon">◇</span>
+          <div><small>Selected route</small><strong>Waiting for a request</strong></div>
+        </div>
+        <div id="activity-list" class="activity-list">
+          <div class="activity-placeholder">Stage progress appears here without exposing prompts or handoff content.</div>
+        </div>
+
+        <div class="divider"></div>
+
+        <div class="panel-heading compact">
+          <span class="eyebrow">Retrieved context</span>
+          <h2>Sources</h2>
+        </div>
+        <div id="source-list" class="source-list">
+          <div class="source-placeholder">Citations will be attached to the next grounded answer.</div>
+        </div>
+
+        <div class="divider"></div>
+        <div class="metric-grid">
+          <div class="metric"><span id="metric-runs">0</span><small>Adaptive runs</small></div>
+          <div class="metric"><span id="metric-success">—</span><small>Success rate</small></div>
+        </div>
+      </aside>
+    </main>
+
+    <div id="toast" class="toast" role="status"></div>
+    <div id="delete-conversation-dialog" class="dialog-backdrop hidden" role="dialog" aria-modal="true" aria-labelledby="delete-dialog-title">
+      <div class="confirm-dialog">
+        <span class="eyebrow">Delete conversation</span>
+        <h2 id="delete-dialog-title">Delete this chat?</h2>
+        <p id="delete-dialog-copy">Its messages will be permanently removed. Documents and long-term memory will stay available.</p>
+        <div class="dialog-actions">
+          <button id="delete-dialog-cancel" class="dialog-button secondary" type="button">Cancel</button>
+          <button id="delete-dialog-confirm" class="dialog-button danger" type="button">Delete</button>
+        </div>
+      </div>
+    </div>
+    <script src="/static/app.js?v=15" defer></script>
+  </body>
+</html>

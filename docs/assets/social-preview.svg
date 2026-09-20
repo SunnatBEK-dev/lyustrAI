@@ -1,0 +1,70 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="640" viewBox="0 0 1280 640" role="img" aria-labelledby="title desc">
+  <title id="title">LyustrAI — Multiple models. One refined answer.</title>
+  <desc id="desc">LyustrAI coordinates Gemini, Claude, and OpenAI through evidence extraction, contradiction-aware analysis, and final synthesis.</desc>
+  <defs>
+    <linearGradient id="background" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#071713"/>
+      <stop offset="1" stop-color="#102b23"/>
+    </linearGradient>
+    <linearGradient id="accent" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#4de0ad"/>
+      <stop offset="1" stop-color="#c9f57a"/>
+    </linearGradient>
+  </defs>
+
+  <rect width="1280" height="640" fill="url(#background)"/>
+  <circle cx="1128" cy="48" r="330" fill="#1c614d" opacity=".25"/>
+  <circle cx="92" cy="684" r="260" fill="#c9f57a" opacity=".08"/>
+  <path d="M790 0h490v268c-114 35-215 33-304-7C886 221 824 134 790 0Z" fill="#4de0ad" opacity=".025"/>
+
+  <rect x="72" y="54" width="68" height="68" rx="19" fill="#133b30" stroke="#4de0ad"/>
+  <path d="M106 102c-7 0-8-15-17-15m17 15c7 0 8-15 17-15" fill="none" stroke="#4de0ad" stroke-linecap="round" stroke-width="3"/>
+  <ellipse cx="106" cy="102" rx="7" ry="4" fill="#1d5b48" stroke="#4de0ad"/>
+  <circle cx="88" cy="79" r="10" fill="#f3c98b" opacity=".16"/>
+  <circle cx="106" cy="83" r="10" fill="#f3c98b" opacity=".16"/>
+  <circle cx="124" cy="79" r="10" fill="#f3c98b" opacity=".16"/>
+  <path d="M83 69h10c-1 3-1 6 0 9 1 4-1 7-5 7s-6-3-5-7c1-3 1-6 0-9Zm18 4h10c-1 3-1 6 0 9 1 4-1 7-5 7s-6-3-5-7c1-3 1-6 0-9Zm18-4h10c-1 3-1 6 0 9 1 4-1 7-5 7s-6-3-5-7c1-3 1-6 0-9Z" fill="#f3c98b" fill-opacity=".2" stroke="#f3c98b"/>
+  <circle cx="88" cy="78" r="2.5" fill="#fff2bd"/>
+  <circle cx="106" cy="82" r="2.5" fill="#fff2bd"/>
+  <circle cx="124" cy="78" r="2.5" fill="#fff2bd"/>
+
+  <text x="164" y="98" fill="#f2fff9" font-family="Inter,Arial,sans-serif" font-size="32" font-weight="750">LyustrAI</text>
+  <text x="1208" y="94" fill="#9cb8ae" font-family="Inter,Arial,sans-serif" font-size="18" font-weight="600" letter-spacing="2" text-anchor="end">GEMINI · CLAUDE · OPENAI</text>
+
+  <text x="72" y="216" fill="#f2fff9" font-family="Inter,Arial,sans-serif" font-size="60" font-weight="750">Multiple models.</text>
+  <text x="72" y="286" fill="url(#accent)" font-family="Inter,Arial,sans-serif" font-size="60" font-weight="750">One refined answer.</text>
+  <text x="76" y="336" fill="#aac6bb" font-family="Inter,Arial,sans-serif" font-size="22">Evidence extraction · contradiction-aware analysis · final synthesis</text>
+
+  <g transform="translate(72 378)">
+    <rect width="346" height="142" rx="20" fill="#112f27" stroke="#285a49"/>
+    <circle cx="42" cy="38" r="17" fill="#4de0ad" opacity=".12"/>
+    <text x="42" y="44" fill="#4de0ad" font-family="Inter,Arial,sans-serif" font-size="16" font-weight="700" text-anchor="middle">01</text>
+    <text x="70" y="44" fill="#91b1a5" font-family="Inter,Arial,sans-serif" font-size="17" font-weight="600" letter-spacing="1.5">GEMINI</text>
+    <text x="24" y="89" fill="#f2fff9" font-family="Inter,Arial,sans-serif" font-size="29" font-weight="700">EXTRACT</text>
+    <text x="24" y="119" fill="#9cb8ae" font-family="Inter,Arial,sans-serif" font-size="17">Evidence &amp; missing context</text>
+  </g>
+
+  <g transform="translate(467 378)">
+    <rect width="346" height="142" rx="20" fill="#112f27" stroke="#285a49"/>
+    <circle cx="42" cy="38" r="17" fill="#c9f57a" opacity=".12"/>
+    <text x="42" y="44" fill="#c9f57a" font-family="Inter,Arial,sans-serif" font-size="16" font-weight="700" text-anchor="middle">02</text>
+    <text x="70" y="44" fill="#91b1a5" font-family="Inter,Arial,sans-serif" font-size="17" font-weight="600" letter-spacing="1.5">CLAUDE</text>
+    <text x="24" y="89" fill="#f2fff9" font-family="Inter,Arial,sans-serif" font-size="29" font-weight="700">ANALYZE</text>
+    <text x="24" y="119" fill="#9cb8ae" font-family="Inter,Arial,sans-serif" font-size="17">Contradictions &amp; uncertainty</text>
+  </g>
+
+  <g transform="translate(862 378)">
+    <rect width="346" height="142" rx="20" fill="#112f27" stroke="#285a49"/>
+    <circle cx="42" cy="38" r="17" fill="#f3c98b" opacity=".12"/>
+    <text x="42" y="44" fill="#f3c98b" font-family="Inter,Arial,sans-serif" font-size="16" font-weight="700" text-anchor="middle">03</text>
+    <text x="70" y="44" fill="#91b1a5" font-family="Inter,Arial,sans-serif" font-size="17" font-weight="600" letter-spacing="1.5">OPENAI</text>
+    <text x="24" y="89" fill="#f2fff9" font-family="Inter,Arial,sans-serif" font-size="29" font-weight="700">SYNTHESIZE</text>
+    <text x="24" y="119" fill="#9cb8ae" font-family="Inter,Arial,sans-serif" font-size="17">One clear final answer</text>
+  </g>
+
+  <path d="M434 449h18m-6-6 6 6-6 6" fill="none" stroke="#4de0ad" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/>
+  <path d="M829 449h18m-6-6 6 6-6 6" fill="none" stroke="#c9f57a" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/>
+
+  <text x="76" y="590" fill="#7b9a8f" font-family="Inter,Arial,sans-serif" font-size="18">PYTHON · FASTAPI · HYBRID RAG · DOCKER</text>
+  <text x="1208" y="590" fill="#7b9a8f" font-family="Inter,Arial,sans-serif" font-size="18" text-anchor="end">LOCAL · SINGLE-USER · BYOK</text>
+</svg>

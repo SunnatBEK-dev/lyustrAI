@@ -1,0 +1,62 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  quality:
+    name: Python ${{ matrix.python-version }} quality gate
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        python-version: ["3.10", "3.12", "3.14"]
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6
+
+      - name: Set up Python
+        uses: actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1 # v6
+        with:
+          python-version: ${{ matrix.python-version }}
+          cache: pip
+
+      - name: Install test dependencies
+        run: python -m pip install --disable-pip-version-check -e '.[documents,web,dev]'
+
+      - name: Check lint and formatting
+        run: |
+          ruff check .
+          ruff format --check .
+
+      - name: Audit repository data and secrets
+        run: python app/audit_repository.py
+
+      - name: Type-check application code
+        run: mypy src/ai_sdk app
+
+      - name: Run unit tests
+        run: pytest
+
+      - name: Run offline integration tests
+        run: pytest -m 'integration and not external'
+
+      - name: Enforce coverage gate
+        run: pytest -m 'not external' --cov=ai_sdk --cov-report=term-missing --cov-report=xml
+
+      - name: Build distribution
+        run: python -m build
+
+      - name: Upload coverage artifact
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
+        with:
+          name: coverage-xml-python-${{ matrix.python-version }}
+          path: coverage.xml
+          if-no-files-found: error

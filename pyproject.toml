@@ -1,0 +1,135 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "lyustrai"
+version = "0.1.0"
+description = "Adaptive multi-model AI orchestration with source-grounded answers"
+readme = "README.md"
+license = "MIT"
+authors = [
+    {name = "sunnatbek-dev", email = "sunnatbekmail@gmail.com"},
+]
+requires-python = ">=3.10"
+keywords = [
+    "agents",
+    "ai",
+    "llm",
+    "mcp",
+    "rag",
+    "retrieval",
+]
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Intended Audience :: Developers",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+    "Programming Language :: Python :: 3.14",
+    "Topic :: Scientific/Engineering :: Artificial Intelligence",
+]
+dependencies = [
+    "anthropic>=0.120,<1",
+    "google-genai>=2.20,<3",
+    "openai>=3,<4",
+    "python-dotenv>=1.2,<2",
+]
+
+[project.optional-dependencies]
+embeddings = [
+    "sentence-transformers>=5.6,<6",
+]
+documents = [
+    "pypdf>=6.16,<7",
+]
+web = [
+    "fastapi>=0.141,<1",
+    "jinja2>=3.1,<4",
+    "python-multipart>=0.0.22,<1",
+    "uvicorn[standard]>=0.52,<1",
+]
+test = [
+    "httpx>=0.28,<1",
+    "pypdf>=6.16,<7",
+    "pytest>=9,<10",
+    "pytest-cov>=7,<8",
+]
+dev = [
+    "build>=1.4,<2",
+    "httpx>=0.28,<1",
+    "mypy>=2.3,<3",
+    "pypdf>=6.16,<7",
+    "pytest>=9,<10",
+    "pytest-cov>=7,<8",
+    "ruff>=0.16,<1",
+]
+
+[project.urls]
+Homepage = "https://github.com/SunnatBEK-dev/lyustrAI"
+Issues = "https://github.com/SunnatBEK-dev/lyustrAI/issues"
+Repository = "https://github.com/SunnatBEK-dev/lyustrAI"
+
+[project.scripts]
+lyustrai = "ai_sdk.web.app:run"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.setuptools.package-data]
+"ai_sdk.web" = ["static/*", "templates/*"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["."]
+addopts = ["-ra", "-m", "not integration"]
+strict_markers = true
+markers = [
+    "integration: exercises multiple real project components",
+    "external: may call a paid external service when explicitly enabled",
+]
+
+[tool.coverage.run]
+branch = true
+source = ["ai_sdk"]
+
+[tool.coverage.report]
+fail_under = 95
+show_missing = true
+skip_covered = true
+
+[tool.mypy]
+python_version = "3.12"
+check_untyped_defs = true
+disallow_untyped_defs = true
+no_implicit_optional = true
+show_error_codes = true
+warn_redundant_casts = true
+warn_unused_ignores = true
+
+# Vendor SDK stubs and MCP JSON payloads expose intentionally dynamic shapes.
+# Those boundaries are covered by runtime validation and deterministic tests;
+# the rest of the application remains under strict checking.
+[[tool.mypy.overrides]]
+module = [
+    "ai_sdk.llm.anthropic",
+    "ai_sdk.llm.gemini",
+    "ai_sdk.llm.openai",
+    "ai_sdk.mcp.client",
+    "ai_sdk.mcp.http",
+    "ai_sdk.mcp.tool_adapter",
+]
+ignore_errors = true
+
+[[tool.mypy.overrides]]
+module = ["sentence_transformers", "sentence_transformers.*"]
+ignore_missing_imports = true
+
+[tool.ruff]
+line-length = 88
+target-version = "py310"
+
+[tool.ruff.lint]
+select = ["E4", "E7", "E9", "F", "I"]

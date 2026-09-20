@@ -1,0 +1,28 @@
+services:
+  assistant:
+    build:
+      context: .
+    init: true
+    ports:
+      - "127.0.0.1:8000:8000"
+    environment:
+      WEB_HOST: 0.0.0.0
+      WEB_PORT: 8000
+      ANTHROPIC_API_KEY: ${ANTHROPIC_API_KEY:-}
+      ANTHROPIC_MODEL: ${ANTHROPIC_MODEL:-}
+      OPENAI_API_KEY: ${OPENAI_API_KEY:-}
+      OPENAI_MODEL: ${OPENAI_MODEL:-}
+      GEMINI_API_KEY: ${GEMINI_API_KEY:-}
+      GEMINI_MODEL: ${GEMINI_MODEL:-}
+      EMBEDDING_MODEL: ${EMBEDDING_MODEL:-all-MiniLM-L6-v2}
+    volumes:
+      - assistant-data:/app/data
+      - model-cache:/home/assistant/.cache/huggingface
+    tmpfs:
+      - /tmp
+    restart: unless-stopped
+    stop_grace_period: 15s
+
+volumes:
+  assistant-data:
+  model-cache:
