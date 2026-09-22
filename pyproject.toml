@@ -40,7 +40,7 @@ dependencies = [
 
 [project.optional-dependencies]
 embeddings = [
-    "sentence-transformers>=5.6,<6",
+    "sentence-transformers>=5.6,<7",
 ]
 documents = [
     "pypdf>=6.16,<7",
