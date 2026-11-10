@@ -43,7 +43,7 @@ embeddings = [
     "sentence-transformers>=5.6,<6",
 ]
 documents = [
-    "pypdf>=6.16,<7",
+    "pypdf>=6.16,<8",
 ]
 web = [
     "fastapi>=0.141,<1",
@@ -53,7 +53,7 @@ web = [
 ]
 test = [
     "httpx>=0.28,<1",
-    "pypdf>=6.16,<7",
+    "pypdf>=6.16,<8",
     "pytest>=9,<10",
     "pytest-cov>=7,<8",
 ]
@@ -61,7 +61,7 @@ dev = [
     "build>=1.4,<2",
     "httpx>=0.28,<1",
     "mypy>=2.3,<3",
-    "pypdf>=6.16,<7",
+    "pypdf>=6.16,<8",
     "pytest>=9,<10",
     "pytest-cov>=7,<8",
     "ruff>=0.16,<1",
